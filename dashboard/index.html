@@ -1,0 +1,58 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overview — SMCPE Dashboard</title><meta name="description" content="September 2026 payroll overview.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css"><link rel="stylesheet" href="css/dashboard.css"></head>
+<body data-page="dashboard"><div class="app">
+<aside class="side" aria-label="Primary"><a class="brand" href="index.html"><span class="mark">S£</span><span><b>Sudan Payroll Engine</b><span>SMCPE · COMP-3</span></span></a>
+<nav class="nav"><h4 data-i18n="nav_operate"></h4>
+<a href="index.html" data-nav="dashboard"><span data-i18n="nav_dashboard"></span></a>
+<a href="employees.html" data-nav="employees"><span data-i18n="nav_employees"></span></a>
+<a href="run.html" data-nav="run"><span data-i18n="nav_run"></span></a>
+<a href="payslips.html" data-nav="payslips"><span data-i18n="nav_payslips"></span></a>
+<h4 data-i18n="nav_compliance"></h4>
+<a href="fx.html" data-nav="fx"><span data-i18n="nav_fx"></span></a>
+<a href="reports.html" data-nav="reports"><span data-i18n="nav_reports"></span></a>
+<a href="bank.html" data-nav="bank"><span data-i18n="nav_bank"></span></a>
+<h4 data-i18n="nav_admin"></h4>
+<a href="tenants.html" data-nav="tenants"><span data-i18n="nav_tenants"></span></a>
+<a href="audit.html" data-nav="audit"><span data-i18n="nav_audit"></span></a>
+<a href="settings.html" data-nav="settings"><span data-i18n="nav_settings"></span></a>
+</nav><div class="side-foot"><div class="engine"><span class="dot"></span><span><b style="color:#fff">libpayroll.so</b> · 11ms / 1k rows<br><span class="mono">COMP-3 exact</span></span></div></div></aside>
+<div class="main"><div class="top"><div class="top-in">
+<div class="tenant"><i>NA</i> Nile Agro Trading <span class="badge b-fx">42 emp</span></div>
+<div class="fx-strip"><span class="fx"><span>USD→SDG</span><b>2,610.50</b></span><span class="fx"><span>SAR→SDG</span><b>696.10</b></span><span class="fx"><span>AED→SDG</span><b>710.85</b></span></div>
+<div class="period"><label class="mono" for="period" data-i18n="top_period" style="font-size:11px;color:var(--muted)"></label>
+<select id="period"><option>2026-09</option><option>2026-08</option><option>2026-07</option></select>
+<button class="btn lang-toggle mono" id="dashLangToggle" aria-label="Switch language">EN</button>
+<a class="btn" href="../landing-page/index.html" data-i18n="top_site"></a>
+<a class="btn btn-primary" href="run.html" data-i18n="top_new"></a></div></div></div>
+<div class="wrap">
+<p class="eyebrow" data-i18n="ov_eb"></p>
+<h1 data-i18n="ov_title"></h1>
+<p class="lede" data-i18n="ov_lede"></p>
+<div class="bento">
+<div class="card kpi"><h3 data-i18n="kpi_head"></h3><div class="v mono">42</div><div class="s" data-i18n="kpi_head_s"></div></div>
+<div class="card kpi"><h3 data-i18n="kpi_gross"></h3><div class="v mono">48,620,400.00</div><div class="s" data-i18n="kpi_gross_s"></div></div>
+<div class="card kpi"><h3 data-i18n="kpi_nsif"></h3><div class="v mono">12,155,100.00</div><div class="s" data-i18n="kpi_nsif_s"></div></div>
+<div class="card kpi"><h3 data-i18n="kpi_net"></h3><div class="v mono">33,891,240.55</div><div class="s" data-i18n="kpi_net_s"></div></div>
+<div class="card wide"><h3 data-i18n="trace_title"></h3>
+<div class="seg"><button data-cur="SDG" data-sal="850000" data-allow="120000" aria-pressed="false">SDG</button><button data-cur="USD" data-sal="1400" data-allow="220" aria-pressed="true">USD × 2610.50</button><button data-cur="SAR" data-sal="5200" data-allow="800" aria-pressed="false">SAR × 696.10</button></div>
+<div class="water mono" id="water"></div></div>
+<div class="card side-c"><h3 data-i18n="pend_title"></h3><div class="alerts">
+<div class="alert a-warn"><span>!</span><div><strong data-i18n="al1t"></strong><span data-i18n="al1d"></span></div></div>
+<div class="alert a-bad"><span>✕</span><div><strong data-i18n="al2t"></strong><span data-i18n="al2d"></span></div></div>
+<div class="alert a-ok"><span>✓</span><div><strong data-i18n="al3t"></strong><span data-i18n="al3d"></span></div></div></div>
+<div class="foot"><a class="btn btn-primary" href="reports.html" data-i18n="open_sched"></a><a class="btn" href="bank.html" data-i18n="bank_file"></a></div></div>
+<div class="card wide"><h3 data-i18n="recent_title"></h3><div class="table-wrap"><table><thead><tr><th data-i18n="th_period"></th><th data-i18n="th_scope"></th><th class="num" data-i18n="th_gross"></th><th class="num" data-i18n="th_nsif"></th><th class="num" data-i18n="th_pit"></th><th class="num" data-i18n="th_net"></th><th data-i18n="th_status"></th></tr></thead><tbody>
+<tr><td class="mono">2026-09</td><td>Nile Agro · 42</td><td class="num">48,620,400.00</td><td class="num">12,155,100.00</td><td class="num">2,574,059.45</td><td class="num">33,891,240.55</td><td><span class="badge b-warn" data-i18n="st_pending"></span></td></tr>
+<tr><td class="mono">2026-08</td><td>Nile Agro · 41</td><td class="num">46,112,900.00</td><td class="num">11,528,225.00</td><td class="num">2,401,118.20</td><td class="num">32,183,556.80</td><td><span class="badge b-ok" data-i18n="st_posted"></span></td></tr>
+</tbody><tfoot><tr><td colspan="2" data-i18n="tot2"></td><td>94,733,300.00</td><td>23,683,325.00</td><td>4,975,177.65</td><td>66,074,797.35</td><td></td></tr></tfoot></table></div></div>
+<div class="card side-c"><h3 data-i18n="cal_title"></h3><div class="table-wrap"><table style="min-width:0"><tbody>
+<tr><td><b>25 Sep</b> — <span data-i18n="cal1"></span></td><td><span class="badge b-ok" data-i18n="st_done"></span></td></tr>
+<tr><td><b>27 Sep</b> — <span data-i18n="cal2"></span></td><td><span class="badge b-warn" data-i18n="st_pending"></span></td></tr>
+<tr><td><b>30 Sep</b> — <span data-i18n="cal3"></span></td><td><span class="badge b-info" data-i18n="st_sched"></span></td></tr>
+<tr><td><b>05 Oct</b> — <span data-i18n="cal4"></span></td><td><span class="badge b-info" data-i18n="st_queue"></span></td></tr>
+</tbody></table></div></div>
+</div></div></div></div>
+<script src="js/data.js"></script><script src="js/payroll.js"></script><script src="js/i18n.js"></script><script src="js/app.js"></script></body></html>

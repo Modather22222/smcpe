@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SMCPE — Sudan Multi-Currency Payroll Engine</title>
+<meta name="description" content="Fixed-point payroll for Sudanese SMEs: SDG/USD/SAR/AED, NSIF 8/17%, PIT, gratuity, Bankak export. Light enough for 3G.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap nav-bar">
+<a class="brand" href="index.html"><span class="mark">S£</span><span><b>Sudan Payroll Engine</b><small>SMCPE · COMP-3 exact</small></span></a>
+<nav class="nav-links" id="navLinks" aria-label="Primary">
+<a href="index.html" aria-current="page" data-i18n="nav.home">Home</a>
+<a href="about.html" data-i18n="nav.about">About</a>
+<a href="faq.html" data-i18n="nav.faq">FAQ</a>
+<a href="contact.html" data-i18n="nav.contact">Contact</a>
+<a href="privacy.html" data-i18n="nav.privacy">Privacy</a>
+</nav>
+<div class="nav-actions">
+<button class="btn lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+<button class="btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+<a class="btn" href="../dashboard/index.html" data-i18n="nav.login">Open dashboard</a>
+<a class="btn btn-primary" href="contact.html" data-i18n="nav.cta">Start payroll run</a>
+</div></div></header>
+<main>
+<div class="wrap hero"><div class="hero-grid">
+<div>
+<p class="eyebrow" data-i18n="hero.eyebrow"></p>
+<h1 data-i18n="hero.title"></h1>
+<p class="lede" data-i18n="hero.lede"></p>
+<div class="hero-cta"><a class="btn btn-primary" href="#demo" data-i18n="hero.primary"></a><a class="btn" href="#how" data-i18n="hero.secondary"></a></div>
+<div class="trust-row"><span data-i18n="hero.trust1"></span><span data-i18n="hero.trust2"></span><span data-i18n="hero.trust3"></span></div>
+<div class="cards"><div class="card s4"><div class="price mono" data-count="1284">0</div><p data-i18n="stat1"></p></div>
+<div class="card s4"><div class="price mono" data-count="25">0</div><p data-i18n="stat2"></p></div>
+<div class="card s4"><div class="price mono" data-count="50">0</div><p data-i18n="stat3"></p></div></div>
+</div>
+<div class="demo-card" id="demo"><h3 data-i18n="demo.title"></h3>
+<div class="seg" role="group" aria-label="Currency demo"><button data-cur="SDG" data-sal="850000" data-allow="120000" aria-pressed="false">SDG</button><button data-cur="USD" data-sal="1400" data-allow="220" aria-pressed="true">USD × 2610.50</button><button data-cur="SAR" data-sal="5200" data-allow="800" aria-pressed="false">SAR × 696.10</button></div>
+<div id="water"></div>
+<p style="color:#93a7c2;font-size:13px" data-i18n="demo.note"></p></div>
+</div></div>
+
+<div class="wrap block" id="logos"><p class="eyebrow" data-i18n="logos.title"></p>
+<div class="marquee"><span data-i18n="m1"></span><span data-i18n="m2"></span><span data-i18n="m3"></span><span data-i18n="m4"></span><span data-i18n="m5"></span><span data-i18n="m6"></span><span data-i18n="m7"></span></div></div>
+
+<div class="wrap block"><p class="eyebrow" data-i18n="feat.eyebrow"></p><h2 data-i18n="feat.title"></h2>
+<div class="cards">
+<div class="card s4"><h3 data-i18n="f1t"></h3><p data-i18n="f1d"></p><span class="badge b-fx mono">FX-NORM</span></div>
+<div class="card s4"><h3 data-i18n="f2t"></h3><p data-i18n="f2d"></p><span class="badge b-ok mono">25% exact</span></div>
+<div class="card s4"><h3 data-i18n="f3t"></h3><p data-i18n="f3d"></p><span class="badge mono">ESG-VAL</span></div>
+<div class="card s6"><h3 data-i18n="f4t"></h3><p data-i18n="f4d"></p></div>
+<div class="card s6"><h3 data-i18n="f5t"></h3><p data-i18n="f5d"></p></div>
+</div></div>
+
+<div class="wrap block" id="how"><p class="eyebrow" data-i18n="how.eyebrow"></p><h2 data-i18n="how.title"></h2>
+<div class="cards">
+<div class="card s3"><span class="step-num">01</span><h3 data-i18n="s1t"></h3><p data-i18n="s1d"></p></div>
+<div class="card s3"><span class="step-num">02</span><h3 data-i18n="s2t"></h3><p data-i18n="s2d"></p></div>
+<div class="card s3"><span class="step-num">03</span><h3 data-i18n="s3t"></h3><p data-i18n="s3d"></p></div>
+<div class="card s3"><span class="step-num">04</span><h3 data-i18n="s4t"></h3><p data-i18n="s4d"></p></div>
+</div></div>
+
+<div class="wrap block"><p class="eyebrow" data-i18n="price.eyebrow"></p><h2 data-i18n="price.title"></h2>
+<div class="cards">
+<div class="card s4"><h3 data-i18n="p1t"></h3><div class="price">$15<span style="font-size:14px" data-i18n="permo"></span></div><p data-i18n="p1d"></p><a class="btn" href="contact.html" data-i18n="choose1"></a></div>
+<div class="card s4" style="border-color:var(--primary)"><h3 data-i18n="p2t"></h3><div class="price">$35<span style="font-size:14px" data-i18n="permo"></span></div><p data-i18n="p2d"></p><a class="btn btn-primary" href="contact.html" data-i18n="choose2"></a></div>
+<div class="card s4"><h3 data-i18n="p3t"></h3><div class="price">$75<span style="font-size:14px" data-i18n="permo"></span></div><p data-i18n="p3d"></p><a class="btn" href="contact.html" data-i18n="choose3"></a></div>
+</div></div>
+
+<div class="wrap block faq"><p class="eyebrow" data-i18n="faq.eyebrow"></p><h2 data-i18n="faq.title"></h2>
+<details open><summary data-i18n="hq1q"></summary><p data-i18n="hq1a"></p></details>
+<details><summary data-i18n="hq2q"></summary><p data-i18n="hq2a"></p></details>
+<details><summary data-i18n="hq3q"></summary><p data-i18n="hq3a"></p></details>
+<p><a href="faq.html" data-i18n="hq_all"></a></p></div>
+
+<div class="wrap block"><div class="card"><h2 data-i18n="cta.title"></h2>
+<p data-i18n="cta.lede"></p>
+<div class="hero-cta"><a class="btn btn-primary" href="contact.html" data-i18n="cta.primary"></a><a class="btn" href="about.html" data-i18n="cta.secondary"></a></div></div></div>
+</main>
+<footer><div class="wrap foot-grid">
+<div><a class="brand" href="index.html"><span class="mark">S£</span><span><b>Sudan Payroll Engine</b><small>SMCPE</small></span></a><p style="color:var(--muted);font-size:14px" data-i18n="foot.tag"></p></div>
+<div><b data-i18n="foot.product"></b><a href="index.html#demo" data-i18n="fl_demo"></a><a href="index.html#how" data-i18n="fl_how"></a><a href="../dashboard/index.html" data-i18n="fl_dash"></a></div>
+<div><b data-i18n="foot.company"></b><a href="about.html" data-i18n="fl_about"></a><a href="faq.html" data-i18n="fl_faq"></a><a href="contact.html" data-i18n="fl_contact"></a></div>
+<div><b data-i18n="foot.legal"></b><a href="privacy.html" data-i18n="fl_priv"></a><a href="contact.html" data-i18n="fl_pilot"></a></div>
+</div></footer>
+<script src="js/i18n.js"></script><script src="js/main.js"></script>
+</body>
+</html>
