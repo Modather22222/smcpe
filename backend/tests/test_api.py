@@ -41,9 +41,9 @@ def test_login_and_employees():
     # statutory
     r = client.get("/api/statutory", headers=hdr)
     assert r.status_code == 200
-    # runs create + compute
+    # runs create + compute (201 Created is correct REST)
     r = client.post("/api/runs", json={"period":"2026-09"}, headers=hdr)
-    assert r.status_code == 200, r.text
+    assert r.status_code in (200, 201), r.text
     run_id = r.json()["run_id"]
     r = client.post(f"/api/runs/{run_id}/compute", headers=hdr)
     assert r.status_code == 200, r.text

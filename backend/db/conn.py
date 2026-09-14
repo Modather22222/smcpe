@@ -1,10 +1,8 @@
-import os, pathlib, aiosqlite
+"""Deprecated — use backend.api.deps.get_db instead."""
+import warnings
+warnings.warn("backend.db.conn.get_db is deprecated, use backend.api.deps.get_db", DeprecationWarning)
 
-DB_PATH = os.getenv("DB_PATH", str(pathlib.Path(__file__).parent / "smcpe.db"))
+from backend.api.deps import get_db  # re-export
+from backend.api.config import settings
 
-async def get_db():
-    db = await aiosqlite.connect(DB_PATH)
-    db.row_factory = aiosqlite.Row
-    await db.execute("PRAGMA journal_mode=WAL;")
-    await db.execute("PRAGMA foreign_keys=ON;")
-    return db
+DB_PATH = settings.DB_PATH

@@ -1,37 +1,67 @@
-import ctypes, pathlib, os, decimal
-from decimal import Decimal, ROUND_HALF_UP
+"""Payroll lib — COBOL COMP-3 via ctypes with Decimal fallback, strict 2-decimal, logged."""
+import ctypes
+import logging
+import pathlib
+from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
+from .config import settings
 
-LIB_PATH = pathlib.Path(os.getenv("COBOL_LIB", str(pathlib.Path(__file__).parent.parent / "cobol" / "libpayroll.so")))
+logger = logging.getLogger("smcpe.payroll_lib")
 
-_lib = None
+LIB_PATH = pathlib.Path(settings.COBOL_LIB)
+_lib: ctypes.CDLL | None = None
 _func = None
+_inited = False
 
-def _init_lib():
-    global _lib, _func
-    if _lib is not None:
+def _init_lib() -> None:
+    global _lib, _func, _inited
+    if _inited:
         return
+    _inited = True
     if not LIB_PATH.exists():
+        logger.warning("COBOL lib not found %s, using Python fallback", LIB_PATH)
         return
     try:
         libcob = ctypes.CDLL("libcob.so.5")
         libcob.cob_init(0, None)
-    except Exception:
-        pass
+        logger.debug("libcob initialized")
+    except Exception as e:
+        logger.warning("libcob init failed: %s", e)
     try:
         _lib = ctypes.CDLL(str(LIB_PATH))
         _func = getattr(_lib, "PAYROLL__CALC")
         _func.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
         _func.restype = ctypes.c_int
+        logger.info("Loaded COBOL lib %s (%s bytes)", LIB_PATH, LIB_PATH.stat().st_size)
     except Exception as e:
-        print(f"payroll_lib: failed to load {LIB_PATH}: {e}")
+        logger.error("Failed to load %s: %s", LIB_PATH, e)
         _lib = None
         _func = None
 
-def _pad(s, n):
+def _pad(s: str, n: int) -> bytes:
     return str(s)[:n].ljust(n).encode()
 
-def compute_payroll(currency: str, base_salary: str, allowances: str, fx_rate: str, nsif_flag: str = "Y", version: str = "v2026.09"):
-    """Try COBOL first, fallback to Python Decimal. Returns dict with strings 2 decimals."""
+def _quantize_2(d: Decimal) -> Decimal:
+    return d.quantize(Decimal("0.00"), rounding=ROUND_HALF_UP)
+
+def _norm_money(s: str) -> str:
+    try:
+        return format(Decimal(s).quantize(Decimal("0.00"), rounding=ROUND_HALF_UP), ".2f")
+    except (InvalidOperation, ValueError, AttributeError) as e:
+        logger.warning("norm_money failed for %r: %s", s, e)
+        return "0.00"
+
+def compute_payroll(
+    currency: str,
+    base_salary: str,
+    allowances: str,
+    fx_rate: str,
+    nsif_flag: str = "Y",
+    version: str = "v2026.09",
+) -> dict:
+    """Try COBOL first (COMP-3, ROUNDED only at NSIF/PIT), fallback to Decimal mirror.
+
+    All money strings are \"0.00\" 2-decimal, FX \"0.0000\" 4-decimal. Never float.
+    """
     _init_lib()
     if _func is not None:
         try:
@@ -44,56 +74,61 @@ def compute_payroll(currency: str, base_salary: str, allowances: str, fx_rate: s
             inp[49:57] = _pad(version, 8)
             out = ctypes.create_string_buffer(92)
             inp_buf = ctypes.create_string_buffer(bytes(inp), 57)
-            _func(inp_buf, out)
+            rc = _func(inp_buf, out)
+            if rc != 0:
+                logger.warning("COBOL PAYROLL__CALC returned %s", rc)
             raw = out.raw
-            def get(off): return raw[off:off+15].decode().strip() or "0.00"
-            # normalize to 2 decimals
-            def norm(s):
-                try:
-                    d = Decimal(s)
-                    return format(d.quantize(Decimal("0.00")), ".2f")
-                except:
-                    return s
+            def get(off: int) -> str:
+                return raw[off:off+15].decode().strip() or "0.00"
             return {
-                "gross": norm(get(0)),
-                "nsif_emp": norm(get(15)),
-                "nsif_co": norm(get(30)),
-                "taxable": norm(get(45)),
-                "pit": norm(get(60)),
-                "net": norm(get(75)),
-                "status": raw[90:92].decode().strip(),
-                "engine": "cobol"
+                "gross": _norm_money(get(0)),
+                "nsif_emp": _norm_money(get(15)),
+                "nsif_co": _norm_money(get(30)),
+                "taxable": _norm_money(get(45)),
+                "pit": _norm_money(get(60)),
+                "net": _norm_money(get(75)),
+                "status": raw[90:92].decode().strip() or "00",
+                "engine": "cobol",
             }
         except Exception as e:
-            print(f"COBOL compute failed, fallback: {e}")
+            logger.exception("COBOL compute failed, fallback to Python: %s", e)
 
-    # Python fallback (Decimal, same tiers as COBOL)
-    D = Decimal
-    q = D("0.00")
-    base_d = D(str(base_salary))
-    allow_d = D(str(allowances))
-    fx_d = D(str(fx_rate))
+    # Python fallback — Decimal, same tiers as COBOL, all quantize ROUND_HALF_UP
+    try:
+        base_d = Decimal(str(base_salary))
+        allow_d = Decimal(str(allowances))
+        fx_d = Decimal(str(fx_rate))
+    except InvalidOperation as e:
+        logger.error("Invalid Decimal input %s/%s/%s: %s", base_salary, allowances, fx_rate, e)
+        raise ValueError(f"Invalid money/fx: {e}") from e
     if fx_d <= 0:
-        fx_d = D("1")
+        logger.warning("FX %s <=0, fallback 1.0000", fx_d)
+        fx_d = Decimal("1.0000")
+    q = Decimal("0.00")
     if currency.upper() == "SDG":
-        gross = (base_d + allow_d).quantize(q)
+        gross = _quantize_2(base_d + allow_d)
     else:
-        gross = ((base_d + allow_d) * fx_d).quantize(q)
+        gross = _quantize_2((base_d + allow_d) * fx_d)
     if nsif_flag.upper() == "Y":
-        nsif_emp = (gross * D("0.08")).quantize(q, rounding=ROUND_HALF_UP)
-        nsif_co = (gross * D("0.17")).quantize(q, rounding=ROUND_HALF_UP)
+        nsif_emp = _quantize_2(gross * Decimal("0.08"))
+        nsif_co = _quantize_2(gross * Decimal("0.17"))
     else:
-        nsif_emp = D("0.00")
-        nsif_co = D("0.00")
-    taxable = (gross - nsif_emp).quantize(q) if gross > nsif_emp else D("0.00")
-    free = D("50000.00")
+        nsif_emp = Decimal("0.00")
+        nsif_co = Decimal("0.00")
+    taxable = _quantize_2(gross - nsif_emp) if gross > nsif_emp else Decimal("0.00")
+    free = Decimal("50000.00")
     if taxable <= free:
-        pit = D("0.00")
+        pit = Decimal("0.00")
     else:
         remaining = taxable - free
-        pit = D("0.00")
+        pit = Decimal("0.00")
         prev = free
-        tiers = [(D("100000.00"), D("0.05")), (D("200000.00"), D("0.10")), (D("400000.00"), D("0.15")), (D("999999999.00"), D("0.20"))]
+        tiers = [
+            (Decimal("100000.00"), Decimal("0.05")),
+            (Decimal("200000.00"), Decimal("0.10")),
+            (Decimal("400000.00"), Decimal("0.15")),
+            (Decimal("999999999.00"), Decimal("0.20")),
+        ]
         for limit, rate in tiers:
             bracket = limit - prev
             if remaining <= 0:
@@ -103,10 +138,10 @@ def compute_payroll(currency: str, base_salary: str, allowances: str, fx_rate: s
                 remaining -= bracket
             else:
                 pit += remaining * rate
-                remaining = D("0.00")
+                remaining = Decimal("0.00")
             prev = limit
-        pit = pit.quantize(q, rounding=ROUND_HALF_UP)
-    net = (gross - nsif_emp - pit).quantize(q)
+        pit = _quantize_2(pit)
+    net = _quantize_2(gross - nsif_emp - pit)
     return {
         "gross": format(gross, ".2f"),
         "nsif_emp": format(nsif_emp, ".2f"),
@@ -115,27 +150,27 @@ def compute_payroll(currency: str, base_salary: str, allowances: str, fx_rate: s
         "pit": format(pit, ".2f"),
         "net": format(net, ".2f"),
         "status": "00",
-        "engine": "python"
+        "engine": "python",
     }
 
-def compute_esg(years: str, monthly: str):
-    D = Decimal
-    y = D(str(years))
-    m = D(str(monthly))
-    if y < D("3"):
-        factor = D("0.33")
-        years_int = int(y.to_integral_value(rounding=ROUND_HALF_UP)) if y < 3 else y
-        # For <3, use integer years as per COBOL INTEGER
-        accrual = m * factor * D(str(int(y)))
-    elif y < D("5"):
-        factor = D("0.50")
+def compute_esg(years: str, monthly: str) -> str:
+    """ESG accrual — <3y 0.33*int(y), 3-5 0.5*y, 5-10 1*y, >10 1.5*y."""
+    try:
+        y = Decimal(str(years))
+        m = Decimal(str(monthly))
+    except InvalidOperation as e:
+        logger.error("ESG invalid %s/%s: %s", years, monthly, e)
+        return "0.00"
+    if y < Decimal("3"):
+        factor = Decimal("0.33")
+        accrual = m * factor * Decimal(str(int(y)))  # COBOL INTEGER
+    elif y < Decimal("5"):
+        factor = Decimal("0.50")
         accrual = m * factor * y
-    elif y < D("10"):
-        factor = D("1.00")
+    elif y < Decimal("10"):
+        factor = Decimal("1.00")
         accrual = m * factor * y
     else:
-        factor = D("1.50")
+        factor = Decimal("1.50")
         accrual = m * factor * y
-    q = D("0.00")
-    accrual = accrual.quantize(q, rounding=ROUND_HALF_UP)
-    return format(accrual, ".2f")
+    return format(_quantize_2(accrual), ".2f")
