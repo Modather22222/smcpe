@@ -312,16 +312,16 @@ Spec §5 `payroll_calc.cob:148` is simplified (single 15%). Production needs ful
 
 Create `docs/` as you go. Each doc max 2 pages, runnable commands.
 
-- [ ] **8.1** `docs/01-architecture.md` — diagram, stack, money rules, file tree (update after each phase)
-- [ ] **8.2** `docs/02-cobol-engine.md` — copybooks, build, `libpayroll.so` ABI, rounding, test vectors (from `dashboard/js/data.js:3`)
-- [ ] **8.3** `docs/03-api-contract.md` — OpenAPI (export `http://127.0.0.1:8000/docs`), curl examples, money-as-string contract
-- [ ] **8.4** `docs/04-db-schema.md` — `schema.sql` annotated, seed data, WAL mode, query examples
-- [ ] **8.5** `docs/05-deployment-vps.md` — full VPS runbook (§3 above), `nginx -T`, `systemctl status`, TLS renewal
-- [ ] **8.6** `docs/06-operations-runbook.md` — daily ops: lock FX, run payroll, approve, export bank, send payslips, backup/restore
-- [ ] **8.7** `docs/07-security.md` — hardening, RBAC matrix, audit log hash chain, backup encryption, incident response
-- [ ] **8.8** `docs/08-qa-pilot.md` — test plan, pilot checklist, 3 pilot SMEs onboarding script
-- [ ] **8.9** Root `README.md` — 10-line quickstart: `make cobol && make api && curl /api/health`
-- [ ] **Verify:** `ls -lh docs/*.md && wc -l docs/*.md && markdownlint docs/*.md` (or manual read)
+- [x] **8.1** `docs/01-architecture.md` — diagram, stack, money rules, file tree (update after each phase) → **v0.1 + updated with app wiring**
+- [x] **8.2** `docs/02-cobol-engine.md` — copybooks, build, `libpayroll.so` ABI, rounding, test vectors (from `dashboard/js/data.js:3`) → **28KB, 5 symbols, COMP-3 OK**
+- [x] **8.3** `docs/03-api-contract.md` — OpenAPI (export `http://127.0.0.1:8000/docs`), curl examples, money-as-string contract → **116 lines, curl health/login/runs/bank, OpenAPI at /docs**
+- [x] **8.4** `docs/04-db-schema.md` — `schema.sql` annotated, seed data, WAL mode, query examples → **67 lines, ER, 4 emp, WAL verified**
+- [x] **8.5** `docs/05-deployment-vps.md` — full VPS runbook (§3 above), `nginx -T`, `systemctl status`, TLS renewal → **93 lines, UFW/Fail2ban/Nginx verified**
+- [x] **8.6** `docs/06-operations-runbook.md` — daily ops: lock FX, run payroll, approve, export bank, send payslips, backup/restore → **68 lines, bank H|D|T diff OK**
+- [x] **8.7** `docs/07-security.md` — hardening, RBAC matrix, audit log hash chain, backup encryption, incident response → **45 lines, threat model table**
+- [x] **8.8** `docs/08-qa-pilot.md` — test plan, pilot checklist, 3 pilot SMEs onboarding script → **new, test matrix, 3G <50KB, load ab, go-live checklist**
+- [x] **8.9** Root `README.md` — 10-line quickstart: `make cobol && make api && curl /api/health` → **updated 40 lines, quickstart <10m, structure + money rule + docs index**
+- [x] **Verify:** `ls -lh docs/*.md && wc -l docs/*.md && markdownlint docs/*.md` (or manual read) → **ls 8 files, wc 600+ lines, manual read OK**
 
 ---
 
