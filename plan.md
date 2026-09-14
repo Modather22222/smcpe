@@ -157,7 +157,7 @@ Spec §5 `payroll_calc.cob:148` is simplified (single 15%). Production needs ful
 
 ### 3.1 SQLite schema
 
-- [ ] **3.1.1** `backend/db/schema.sql`:
+- [x] **3.1.1** `backend/db/schema.sql`:
   ```sql
   -- tenants, users, employees, fx_history, payroll_runs, payroll_lines, statutory_tables, audit_log
   CREATE TABLE tenants(id TEXT PRIMARY KEY, name TEXT, plan TEXT, created_at TEXT);
@@ -169,16 +169,16 @@ Spec §5 `payroll_calc.cob:148` is simplified (single 15%). Production needs ful
   CREATE TABLE payroll_lines(run_id TEXT, emp_id TEXT, gross TEXT, nsif_emp TEXT, nsif_co TEXT, taxable TEXT, pit TEXT, net TEXT, net_fx TEXT, PRIMARY KEY(run_id,emp_id));
   CREATE TABLE audit_log(id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT, actor TEXT, action TEXT, hash TEXT, payload_json TEXT);
   ```
-- [ ] **3.1.2** Seed: `INSERT INTO statutory_tables VALUES('v2026.09','0.08','0.17','50000.00','[{"limit":50000,"rate":0.05},{"limit":100000,"rate":0.10},{"limit":200000,"rate":0.15},{"limit":999999999,"rate":0.20}]',...)`
-- [ ] **3.1.3** Seed `fx_history` with `dashboard/fx.html:13` (2026-09-25 locked USD 2610.50/SAR 696.10/AED 710.85) + demo employees from `dashboard/js/data.js:9`
-- [ ] **Docs:** `docs/04-db-schema.md` — ER diagram (mermaid), `schema.sql` with comments, money-as-TEXT rationale
+- [x] **3.1.2** Seed: `INSERT INTO statutory_tables VALUES('v2026.09','0.08','0.17','50000.00','[{"limit":50000,"rate":0.05},{"limit":100000,"rate":0.10},{"limit":200000,"rate":0.15},{"limit":999999999,"rate":0.20}]',...)`
+- [x] **3.1.3** Seed `fx_history` with `dashboard/fx.html:13` (2026-09-25 locked USD 2610.50/SAR 696.10/AED 710.85) + demo employees from `dashboard/js/data.js:9`
+- [x] **Docs:** `docs/04-db-schema.md` — ER diagram (mermaid), `schema.sql` with comments, money-as-TEXT rationale
 
 ### 3.2 Migrations & access
 
-- [ ] **3.2.1** `backend/db/migrate.py` — idempotent `sqlite3 smcpe.db < schema.sql`, version table
-- [ ] **3.2.2** Python wrapper `backend/db/conn.py` — `aiosqlite` + `check_same_thread=False`, `PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON;`
-- [ ] **3.2.3** Flat-file logs: `backend/data/runs/2026-09/*.txt` — COBOL indexed flat files for bank export (mirror `payroll_lines`)
-- [ ] **Verify:** `sqlite3 backend/db/smcpe.db < backend/db/schema.sql && sqlite3 backend/db/smcpe.db "SELECT * FROM statutory_tables;"`
+- [x] **3.2.1** `backend/db/migrate.py` — idempotent `sqlite3 smcpe.db < schema.sql`, version table
+- [x] **3.2.2** Python wrapper `backend/db/conn.py` — `aiosqlite` + `check_same_thread=False`, `PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON;`
+- [x] **3.2.3** Flat-file logs: `backend/data/runs/2026-09/*.txt` — COBOL indexed flat files for bank export (mirror `payroll_lines`)
+- [x] **Verify:** `sqlite3 backend/db/smcpe.db < backend/db/schema.sql && sqlite3 backend/db/smcpe.db "SELECT * FROM statutory_tables;"` → **84K WAL, 4 employees, 9 fx, integrity OK**
 
 ---
 
