@@ -55,14 +55,15 @@ curl -s -H "Authorization: Bearer $TOKEN" "http://127.0.0.1/api/bank/file?run_id
 - `docs/02-cobol-engine.md` — build, ABI, COMP-3 tests
 - `docs/03-api-contract.md` — curl examples, OpenAPI at `http://127.0.0.1:8000/docs`
 - `docs/04-db-schema.md` — ER, WAL, queries
-- `docs/05-deployment-vps.md` — Nginx, UFW, Fail2ban, TLS
+- `docs/05-deployment-vps.md` — Nginx, UFW, Fail2ban, TLS (fresh VPS checklist)
 - `docs/06-operations-runbook.md` — bank file, daily ops
 - `docs/07-security.md` — threat model, RBAC
 - `docs/08-qa-pilot.md` — test matrix, pilot script
+- `docs/09-vps-setup-and-migration.md` — **localhost + new VPS setup, migration, what to copy, one-liner start**
 
 ## Production VPS (this host is backend)
 
 - Debian 13 trixie, `cobc 4.0`, `nginx 1.26`, `sqlite3 3.46`, `python 3.13`, `ufw` active 22/80/443, Nginx `limit_req 10r/s` on `/api/`
 - `libpayroll.so` 28KB, `<15MB RSS`, 11ms/1k rows, text payslip 794 bytes
 
-See `plan.md` for full checklist and `docs/05-deployment-vps.md` for TLS (`certbot --nginx -d pay.yourdomain.sd`).
+See `plan.md` for full checklist, `docs/05-deployment-vps.md` for TLS, and **`docs/09-vps-setup-and-migration.md` for localhost (`http://localhost`, `http://127.0.0.1/app/login.html`) and for moving to any new VPS**.

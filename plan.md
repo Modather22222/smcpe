@@ -28,11 +28,11 @@ backend/
   cobol/payroll_calc.cob  copybooks/EMPFILE.cpy copybooks/PRLREC.cpy  Makefile
   api/app.py  api/routers/*.py  api/schemas.py  api/security.py
   db/schema.sql  db/migrate.py  data/statutory_v2026.09.json
-  workers/batch_runner.py  workers/payslip_sender.py  workers/backup.py
-  tests/test_payroll_decimal.py  tests/test_api.py
+  workers/bank_export.py  workers/payslip_sender.py  templates/payslip.txt
+  tests/test_cobol_roundtrip.py  tests/test_api.py
 docs/
   01-architecture.md  02-cobol-engine.md  03-api-contract.md  04-db-schema.md
-  05-deployment-vps.md  06-operations-runbook.md  07-security.md  08-qa-pilot.md
+  05-deployment-vps.md  06-operations-runbook.md  07-security.md  08-qa-pilot.md  09-vps-setup-and-migration.md
 ops/
   nginx/smcpe.conf  systemd/smcpe-api.service  scripts/backup.sh  scripts/restore.sh
 ```
