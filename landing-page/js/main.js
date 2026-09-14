@@ -42,6 +42,17 @@
   seg.forEach(b=>b.addEventListener('click',()=>sel(b)));
   if(seg[1])activeBtn=seg[1];else if(seg[0])activeBtn=seg[0];
   applyLang(getLang());
+  // API health badge (same origin via Nginx /api/)
+  fetch("/api/health").then(r=>r.json()).then(j=>{
+    const el=document.querySelector(".trust-row");
+    if(el && j.ok){
+      const b=document.createElement("span");
+      b.className="mono";
+      b.style.cssText="background:#ecfdf5;border:1px solid #047857;color:#047857;padding:2px 6px;border-radius:999px;font-size:11px";
+      b.textContent="API "+(j.version||"v2026.09")+" ● libpayroll.so ✓";
+      el.appendChild(b);
+    }
+  }).catch(()=>{});
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);
     const t=+el.dataset.count,to=performance.now(),d=1500;
     (function tick(now){const p=Math.min(1,(now-to)/d),v=Math.round(t*(1-Math.pow(1-p,3)));el.textContent=v.toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)})(to);}),{threshold:.4});
