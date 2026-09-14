@@ -20,4 +20,4 @@ INSERT OR IGNORE INTO employees VALUES ('SD-0044','NA','Sara K. Elamin','5519027
 INSERT OR IGNORE INTO employees VALUES ('SD-0045','NA','Yousif T. Bakhit','33018845','2014-01-05','AED','4800.00','650.00','Y','77120019','KHARTOUM','2026-09-01T00:00:00Z');
 
 -- Demo owner user (password: admin123 hashed via bcrypt, placeholder)
-INSERT OR IGNORE INTO users VALUES ('u_owner_na','NA','owner@nileagro.sd','$2b$12$LJ3m4ysu8h6R0B4X3Z5uOe5J5y5y5y5y5y5y5y5y5y5y5y5y5y5y','owner','2026-09-01T00:00:00Z');
+INSERT OR IGNORE INTO users VALUES ('u_owner_na','NA','owner@nileagro.sd','$2b$12$.1/dhhZIGYIIL9WMakt.O.hPSPpbpR8mlxX7ySak6GbTOXOBrvtP.','owner','2026-09-01T00:00:00Z');

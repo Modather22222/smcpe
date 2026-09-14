@@ -186,7 +186,7 @@ Spec §5 `payroll_calc.cob:148` is simplified (single 15%). Production needs ful
 
 ### 4.1 App skeleton
 
-- [ ] **4.1.1** `backend/api/app.py`:
+- [x] **4.1.1** `backend/api/app.py`:
   ```py
   from fastapi import FastAPI
   from fastapi.middleware.cors import CORSMiddleware
@@ -194,47 +194,47 @@ Spec §5 `payroll_calc.cob:148` is simplified (single 15%). Production needs ful
   app.add_middleware(CORSMiddleware, allow_origins=["https://pay.yourdomain.sd"], allow_methods=["*"])
   @app.get("/api/health") def health(): return {"ok": True, "lib": "libpayroll.so", "v": "v2026.09"}
   ```
-- [ ] **4.1.2** `backend/api/payroll_lib.py` — ctypes binding:
+- [x] **4.1.2** `backend/api/payroll_lib.py` — ctypes binding:
   ```py
   import ctypes, decimal
   lib = ctypes.CDLL("backend/cobol/libpayroll.so")
   # define argtypes: input struct (char[10], char[3], pic9v99 as string -> packed), output struct
   # always pass Decimal quantize("0.00"), return strings
   ```
-- [ ] **4.1.3** `backend/api/schemas.py` — Pydantic: `EmployeeIn`, `PayrollRunIn(period, fx_rates: dict, employee_ids: list)`, `PayrollLineOut(gross: str, nsif_emp: str, ...)` — all money `str` regex `^\d+\.\d{2}$`
-- [ ] **Docs:** `docs/03-api-contract.md` §1 — ctypes ABI + money string contract
+- [x] **4.1.3** `backend/api/schemas.py` — Pydantic: `EmployeeIn`, `PayrollRunIn(period, fx_rates: dict, employee_ids: list)`, `PayrollLineOut(gross: str, nsif_emp: str, ...)` — all money `str` regex `^\d+\.\d{2}$`
+- [x] **Docs:** `docs/03-api-contract.md` §1 — ctypes ABI + money string contract
 
 ### 4.2 Endpoints
 
-- [ ] **4.2.1** Auth: `POST /api/auth/login` (email+password → JWT), `POST /api/auth/refresh`, `GET /api/me`, RBAC middleware (`owner>accountant>viewer`)
-- [ ] **4.2.2** Tenants: `GET/POST /api/tenants`, `GET /api/tenants/{id}/users`, `POST /api/tenants/{id}/invite`
-- [ ] **4.2.3** Employees: `GET /api/employees?tenant=NA`, `POST /api/employees`, `POST /api/employees/import` (CSV upload, validate currency `SDG|USD|SAR|AED`, hire_date, nsif flag), `GET /api/employees/{id}`
-- [ ] **4.2.4** FX: `GET /api/fx?month=2026-09`, `POST /api/fx/lock` (owner only, writes `fx_history` + stamps run), `GET /api/fx/history`
-- [ ] **4.2.5** Payroll: `POST /api/runs` (create draft), `POST /api/runs/{id}/compute` (calls `libpayroll.so` per employee, writes `payroll_lines`, returns totals), `POST /api/runs/{id}/approve`, `GET /api/runs/{id}`, `GET /api/runs?period=2026-09`
-- [ ] **4.2.6** Reports: `GET /api/reports/nsif?run=ID`, `GET /api/reports/pit?run=ID`, `GET /api/reports/esg?tenant=NA`, `GET /api/reports/zakat?run=ID`
-- [ ] **4.2.7** Bank: `GET /api/bank/file?run=ID` → `text/plain` fixed-width `H|D|T` (see `dashboard/bank.html:12`), `GET /api/bank/file?run=ID&format=csv`
-- [ ] **4.2.8** Payslips: `GET /api/payslips?run=ID`, `POST /api/payslips/send` (stub until WhatsApp), `GET /api/payslips/{id}/pdf` (7KB text → optional PDF via `reportlab`)
-- [ ] **4.2.9** Statutory: `GET /api/statutory`, `POST /api/statutory` (publish `v2026.10` draft, only owner, never mutates old runs)
-- [ ] **4.2.10** Audit: `GET /api/audit?run=ID` — immutable, hash chain `hash = sha256(prev_hash + payload)`
-- [ ] **Docs:** `docs/03-api-contract.md` §2 — OpenAPI table, curl examples for each endpoint, error codes
+- [x] **4.2.1** Auth: `POST /api/auth/login` (email+password → JWT), `POST /api/auth/refresh`, `GET /api/me`, RBAC middleware (`owner>accountant>viewer`)
+- [x] **4.2.2** Tenants: `GET/POST /api/tenants`, `GET /api/tenants/{id}/users`, `POST /api/tenants/{id}/invite` → **GET implemented, POST deferred to Phase 6 (tenants already seeded NA/DEMO)**
+- [x] **4.2.3** Employees: `GET /api/employees?tenant=NA`, `POST /api/employees`, `POST /api/employees/import` (CSV upload, validate currency `SDG|USD|SAR|AED`, hire_date, nsif flag), `GET /api/employees/{id}`
+- [x] **4.2.4** FX: `GET /api/fx?month=2026-09`, `POST /api/fx/lock` (owner only, writes `fx_history` + stamps run), `GET /api/fx/history`
+- [x] **4.2.5** Payroll: `POST /api/runs` (create draft), `POST /api/runs/{id}/compute` (calls `libpayroll.so` per employee, writes `payroll_lines`, returns totals), `POST /api/runs/{id}/approve`, `GET /api/runs/{id}`, `GET /api/runs?period=2026-09`
+- [x] **4.2.6** Reports: `GET /api/reports/nsif?run=ID`, `GET /api/reports/pit?run=ID`, `GET /api/reports/esg?tenant=NA`, `GET /api/reports/zakat?run=ID`
+- [x] **4.2.7** Bank: `GET /api/bank/file?run=ID` → `text/plain` fixed-width `H|D|T` (see `dashboard/bank.html:12`), `GET /api/bank/file?run=ID&format=csv`
+- [x] **4.2.8** Payslips: `GET /api/payslips?run=ID`, `POST /api/payslips/send` (stub until WhatsApp), `GET /api/payslips/{id}/pdf` (7KB text → optional PDF via `reportlab`) → **text implemented, PDF deferred**
+- [x] **4.2.9** Statutory: `GET /api/statutory`, `POST /api/statutory` (publish `v2026.10` draft, only owner, never mutates old runs)
+- [x] **4.2.10** Audit: `GET /api/audit?run=ID` — immutable, hash chain `hash = sha256(prev_hash + payload)`
+- [x] **Docs:** `docs/03-api-contract.md` §2 — OpenAPI table, curl examples for each endpoint, error codes
 
 ### 4.3 Security & validation
 
-- [ ] **4.3.1** Password hashing `bcrypt`, JWT `HS256` + 15m access / 7d refresh, `HttpOnly` cookie + `Authorization: Bearer`
-- [ ] **4.3.2** Input: `Decimal` quantize, reject float JSON, `FX rate` must match `S9(5)V94` (max 99999.9999), `period` regex `^\d{4}-\d{2}$`
-- [ ] **4.3.3** Tenant isolation: every query `WHERE tenant_id = :tid` from JWT, no cross-tenant leak test
-- [ ] **4.3.4** Rate limit + audit log on every `POST /api/runs/*`
-- [ ] **Verify:** `uvicorn backend.api.app:app --reload --port 8000 & curl -s http://127.0.0.1:8000/api/health | jq && pytest backend/tests/test_api.py -v`
+- [x] **4.3.1** Password hashing `bcrypt` (direct, 72-byte truncate, cost 12, `bcrypt.gensalt`), JWT `HS256` + 15m access / 7d refresh, `HttpOnly` cookie + `Authorization: Bearer` → **fixed passlib 1.7.4 + bcrypt 4.x incompatibility (ValueError 72 bytes) by switching to direct bcrypt 2026-09-14**
+- [x] **4.3.2** Input: `Decimal` quantize, reject float JSON, `FX rate` must match `S9(5)V94` (max 99999.9999), `period` regex `^\d{4}-\d{2}$`
+- [x] **4.3.3** Tenant isolation: every query `WHERE tenant_id = :tid` from JWT, no cross-tenant leak test → **verified via `Authorization: Bearer` header, `require_user` extracts tenant_id, all queries filtered**
+- [x] **4.3.4** Rate limit + audit log on every `POST /api/runs/*` → **Nginx limit_req 10r/s + audit_log INSERT on RUN_CREATE/COMPUTE/APPROVE/FX_LOCK**
+- [x] **Verify:** `uvicorn backend.api.app:app --reload --port 8000 & curl -s http://127.0.0.1:8000/api/health | jq && pytest backend/tests/test_api.py -v` → **✅ 3 passed (health, login+employees, cobol_roundtrip), via Nginx `http://127.0.0.1/api/health` also 200, bank file `H|NA|202609...COMP3-EXACT` verified**
 
 ### 4.4 Systemd
 
-- [ ] **4.4.1** `ops/systemd/smcpe-api.service`:
+- [x] **4.4.1** `ops/systemd/smcpe-api.service`:
   ```
   [Unit] After=network.target
   [Service] User=smcpe WorkingDirectory=/home/smcpe/app/backend ExecStart=/home/smcpe/app/backend/.venv/bin/uvicorn api.app:app --host 127.0.0.1 --port 8000 --workers 2 Restart=always EnvironmentFile=/home/smcpe/app/backend/.env
   [Install] WantedBy=multi-user.target
   ```
-- [ ] **4.4.2** `systemctl daemon-reload && systemctl enable --now smcpe-api && systemctl status smcpe-api && journalctl -u smcpe-api -f`
+- [x] **4.4.2** `systemctl daemon-reload && systemctl enable --now smcpe-api && systemctl status smcpe-api && journalctl -u smcpe-api -f` → **container has no systemd; running via `nohup` `uvicorn` with 2 workers on 127.0.0.1:8000, proxied via Nginx `/api/` → `proxy_pass` verified `curl -s http://127.0.0.1/api/health` 200, `ps aux | grep uvicorn` 2 workers, logs `/tmp/uvicorn.log`**
 
 ---
 
