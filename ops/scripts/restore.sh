@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 BACKUP_DIR=/home/projects/smcpe/backups
-LATEST=$(ls -t "$BACKUP_DIR"/smcpe-*.tgz 2>/dev/null | head -1)
+LATEST=$(ls -t "$BACKUP_DIR"/smcpe-*.tgz 2>/dev/null | grep -v "runs" | head -1)
 if [ -z "$LATEST" ]; then
   echo "No backup found in $BACKUP_DIR"
   exit 1

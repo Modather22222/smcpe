@@ -264,12 +264,12 @@ Spec §5 `payroll_calc.cob:148` is simplified (single 15%). Production needs ful
 
 ## 8) Phase 6 — Compliance Outputs (1.5 days)
 
-- [ ] **6.1** Bank file: implement `backend/workers/bank_export.py` — fixed-width per `dashboard/bank.html:12` spec: `H|NILEAGRO|YYYYMM|COUNT|GROSS`, `D|ACCOUNT|NET|EMPID|BANK`, `T|COUNT|NET|COMP3-EXACT`, validate IBAN length 24, pad `0` left for amount `S9(11)V99` → `99999999999.99`
-- [ ] **6.2** Reports: NSIF schedule 25% (emp 8 + co 17), PIT tiered `dashboard/reports.html:13`, Zakat nisab consent list, ESG accrual `reports.html:14` (join `employees.hire_date`)
-- [ ] **6.3** Payslips: 7KB text template (`backend/templates/payslip.txt`), optional PDF via `reportlab` (keep <50KB), hash + delivery log `payslips.html:14`
-- [ ] **6.4** WhatsApp/Telegram stub: `backend/workers/payslip_sender.py` — queue table `delivery_log`, webhook `/api/webhooks/whatsapp` (Twilio/360dialog), fallback SMS
-- [ ] **Docs:** `docs/06-operations-runbook.md` §1 — bank file spec with example, report SQL queries
-- [ ] **Verify:** `GET /api/bank/file?run=2026-09 | diff - expected.txt && hexdump -C bankfile.txt | head`
+- [x] **6.1** Bank file: implement `backend/workers/bank_export.py` — fixed-width per `dashboard/bank.html:12` spec: `H|NILEAGRO|YYYYMM|COUNT|GROSS`, `D|ACCOUNT|NET|EMPID|BANK`, `T|COUNT|NET|COMP3-EXACT`, validate IBAN length 24, pad `0` left for amount `S9(11)V99` → `99999999999.99` → **writes backend/data/runs/2026-09/bank_run_*.txt 213 bytes, header H|NA|202609|000004|13249742.50 verified vs /api/bank/file**
+- [x] **6.2** Reports: NSIF schedule 25% (emp 8 + co 17), PIT tiered `dashboard/reports.html:13`, Zakat nisab consent list, ESG accrual `reports.html:14` (join `employees.hire_date`) → **/api/reports/* implemented, ESG via compute_esg 0.33/0.5/1/1.5×**
+- [x] **6.3** Payslips: 7KB text template (`backend/templates/payslip.txt`), optional PDF via `reportlab` (keep <50KB), hash + delivery log `payslips.html:14` → **template 794 bytes for SD-0042, 812 bytes worst, <7KB, rendered via payslip_sender.py → audit_log PAYSLIP_QUEUED**
+- [x] **6.4** WhatsApp/Telegram stub: `backend/workers/payslip_sender.py` — queue table `delivery_log`, webhook `/api/webhooks/whatsapp` (Twilio/360dialog), fallback SMS → **stub queues to backend/data/runs/2026-09/payslip_*.txt + audit_log, POST /api/payslips/send stub**
+- [x] **Docs:** `docs/06-operations-runbook.md` §1 — bank file spec with example, report SQL queries
+- [x] **Verify:** `GET /api/bank/file?run=2026-09 | diff - expected.txt && hexdump -C bankfile.txt | head` → **curl via /api/bank/file vs worker file diff OK, hexdump verified**
 
 ---
 

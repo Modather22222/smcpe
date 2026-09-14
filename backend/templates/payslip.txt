@@ -1,0 +1,23 @@
+SMCPE Payslip — {period} — {tenant}
+==================================================
+Employee: {name} ({emp_id}) — NID {national_id}
+Hire: {hire_date} — Currency: {currency} — NSIF: {nsif_flag}
+
+Base Salary:      {base_salary} {currency}
+Allowances:       {allowances} {currency}
+FX Rate:          {fx_rate} SDG
+--------------------------------------------------
+Gross SDG:        {gross}
+NSIF Employee 8%: {nsif_emp}
+NSIF Employer 17%: {nsif_co}
+Taxable:          {taxable}
+PIT:              {pit}
+Zakat:            {zakat}
+--------------------------------------------------
+Net Pay SDG:      {net}
+Net Pay {currency}: {net_fx}
+--------------------------------------------------
+Bank: {bank_code} — {bank_account}
+Statutory: {statutory_version} — FX locked {fx_date}
+==================================================
+COMP-3 exact — libpayroll.so — 7KB text
