@@ -1,0 +1,68 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Samples — SMCPE Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css"><link rel="stylesheet" href="css/dashboard.css"></head>
+<body data-page="samples"><div class="app">
+<aside class="side" aria-label="Primary"><a class="brand" href="index.html"><span class="mark">S£</span><span><b>Sudan Payroll Engine</b><span>SMCPE · COMP-3</span></span></a>
+<nav class="nav"><h4 data-i18n="nav_operate"></h4><a href="index.html" data-nav="dashboard"><span data-i18n="nav_dashboard"></span></a><a href="employees.html" data-nav="employees"><span data-i18n="nav_employees"></span></a><a href="run.html" data-nav="run"><span data-i18n="nav_run"></span></a><a href="payslips.html" data-nav="payslips"><span data-i18n="nav_payslips"></span></a><a href="samples.html" data-nav="samples" aria-current="page"><span data-i18n="nav_samples"></span></a><h4 data-i18n="nav_compliance"></h4><a href="fx.html" data-nav="fx"><span data-i18n="nav_fx"></span></a><a href="reports.html" data-nav="reports"><span data-i18n="nav_reports"></span></a><a href="bank.html" data-nav="bank"><span data-i18n="nav_bank"></span></a><h4 data-i18n="nav_admin"></h4><a href="tenants.html" data-nav="tenants"><span data-i18n="nav_tenants"></span></a><a href="audit.html" data-nav="audit"><span data-i18n="nav_audit"></span></a><a href="settings.html" data-nav="settings"><span data-i18n="nav_settings"></span></a></nav><div class="side-foot"><div class="engine"><span class="dot"></span><span><b style="color:#fff">libpayroll.so</b><br><span class="mono">COMP-3 exact</span></span></div></div></aside>
+<div class="main"><div class="top"><div class="top-in"><div class="tenant"><i>NA</i> Nile Agro Trading <span class="badge b-fx">samples</span></div>
+<div class="period"><button class="btn lang-toggle mono" id="dashLangToggle">EN</button><a class="btn" href="../landing-page/index.html" data-i18n="top_site"></a></div></div></div>
+<div class="wrap">
+<p class="eyebrow" data-i18n="samp_eb"></p><h1 data-i18n="samp_title"></h1>
+<p class="lede" data-i18n="samp_lede"></p>
+
+<div class="card" style="border-left:4px solid #0ea5e9; background:#f0f9ff">
+<h3 style="margin:0 0 6px; display:flex;align-items:center;gap:8px"><span style="background:#0ea5e9;color:#fff;border-radius:999px;padding:2px 8px;font-size:11px" data-i18n="samp_demo"></span><span data-i18n="samp_trust_title"></span></h3>
+<p class="note" data-i18n="samp_trust_desc"></p>
+<ul class="mono" style="font-size:12px;color:var(--muted);margin:8px 0 0 18px"><li data-i18n="samp_b1"></li><li data-i18n="samp_b2"></li><li data-i18n="samp_b3"></li><li data-i18n="samp_b4"></li></ul>
+<p class="note" style="margin-top:8px"><a href="/samples/" target="_blank" data-i18n="samp_open_folder"></a> · <a href="/samples/manifest.json" target="_blank">manifest.json</a> · <a href="/samples/checksums.sha256" target="_blank">checksums.sha256</a></p>
+</div>
+
+<div class="grid2">
+<div class="card"><h3 data-i18n="samp_12_title"></h3><p class="note" data-i18n="samp_12_desc"></p><p class="mono" style="font-size:12px">12 rows → gross 43,011,522.50 · net 32,286,892.96</p>
+<div class="table-wrap"><table style="min-width:0"><tbody>
+<tr><td><b>SD-0042</b> Amal Hassan · USD 1400+220 · Y</td><td><span class="badge b-fx">USD</span></td></tr>
+<tr><td><b>SD-0044</b> Sara Elamin · SAR 5200+800 · <b>N</b> contractor</td><td><span class="badge b-warn">N</span></td></tr>
+<tr><td><b>SD-0051</b> Test Zero · SDG 0.00 · edge</td><td><span class="badge">SDG</span></td></tr>
+</tbody></table></div>
+<div class="foot"><button class="btn btn-primary" id="load12" data-i18n="samp_load12"></button><a class="btn" href="/samples/employees_sample.csv" target="_blank" data-i18n="samp_preview"></a></div><p id="msg12" class="note mono" style="min-height:1em"></p></div>
+
+<div class="card"><h3 data-i18n="samp_42_title"></h3><p class="note" data-i18n="samp_42_desc"></p><p class="mono" style="font-size:12px">42 rows → gross 186,090,341.70 · net 140,462,078.13</p>
+<div class="table-wrap"><table style="min-width:0"><tbody><tr><td>30 synthetic + 12 core</td><td><span class="badge b-fx">USD/SDG/SAR/AED</span></td></tr><tr><td>15% contractors N</td><td><span class="badge b-warn">N</span></td></tr><tr><td>Hire 2014–2024 for ESG</td><td><span class="badge b-ok">ESG</span></td></tr></tbody></table></div>
+<div class="foot"><button class="btn btn-primary" id="load42" data-i18n="samp_load42"></button><a class="btn" href="/samples/employees_42.csv" target="_blank" data-i18n="samp_preview"></a></div><p id="msg42" class="note mono" style="min-height:1em"></p></div>
+
+<div class="card"><h3 data-i18n="samp_fx_title"></h3><p class="note" data-i18n="samp_fx_desc"></p><pre class="file mono" style="font-size:11px">USD 2610.5000 · SAR 696.1000 · AED 710.8500 (2026-09-25 locked)
+USD 2585.0000 · SAR 689.2000 · AED 703.9000 (2026-09-18 CBOS)
+v2026.09  nsif 8/17  tax_free 50000  tiers 5/10/15/20</pre><div class="foot"><a class="btn" href="/samples/fx_rates.json" target="_blank">fx_rates.json</a><a class="btn" href="/samples/statutory_v2026.09.json" target="_blank">statutory.json</a></div></div>
+
+<div class="card"><h3 data-i18n="samp_bank_title"></h3><p class="note" data-i18n="samp_bank_desc"></p><pre class="file mono" style="font-size:11px">H|NA|202609|000012|43011522.50
+D|1002844551|3150051.36|SD-0042|BANKAK
+D|88210042|751420.00|SD-0043|FAISAL
+T|000012|32286892.96|COMP3-EXACT</pre><div class="foot"><a class="btn" href="/samples/bank_file_sample.txt" target="_blank" data-i18n="samp_preview"></a><a class="btn" href="/samples/payroll_run_2026-09_12.json" target="_blank" data-i18n="samp_expected"></a></div></div>
+</div>
+
+<div class="card"><h3 data-i18n="samp_how_title"></h3><ol style="font-size:13px;color:var(--muted);margin:8px 0 0 18px"><li data-i18n="samp_how1"></li><li data-i18n="samp_how2"></li><li data-i18n="samp_how3"></li><li data-i18n="samp_how4"></li></ol><p class="note" style="margin-top:8px" data-i18n="samp_how_note"></p></div>
+
+</div></div></div>
+<script src="js/config.js"></script><script src="js/auth.js"></script><script src="js/data.js"></script><script src="js/payroll.js"></script><script src="js/i18n.js"></script><script src="js/app.js"></script>
+<script>
+(function(){
+  async function loadCsv(path, msgEl){
+    msgEl.textContent="…";
+    try{
+      const res=await fetch(path);
+      if(!res.ok) throw new Error(res.status);
+      const text=await res.text();
+      const fd=new FormData(); fd.append("file", new Blob([text],{type:"text/csv"}), path.split("/").pop());
+      const r=await smcpeFetch("/employees/import",{method:"POST", body:fd});
+      if(!r.ok) throw new Error(await r.text());
+      const j=await r.json();
+      msgEl.textContent=`✓ ${j.imported} imported, ${j.warnings} warnings — ` + (document.documentElement.lang==='ar' ? 'افتح الموظفين/المسير' : 'open Employees/Run');
+      msgEl.style.color="#047857";
+    }catch(e){ msgEl.textContent="✕ "+(e.message||e); msgEl.style.color="#be123c"; console.error(e); }
+  }
+  document.getElementById("load12").addEventListener("click",()=>loadCsv("/samples/employees_sample.csv", document.getElementById("msg12")));
+  document.getElementById("load42").addEventListener("click",()=>loadCsv("/samples/employees_42.csv", document.getElementById("msg42")));
+})();
+</script>
+</body></html>

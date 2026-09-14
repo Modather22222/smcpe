@@ -20,7 +20,7 @@ curl -s http://127.0.0.1:8000/api/health | jq
 curl -s http://127.0.0.1/api/health | jq # via Nginx
 pytest backend/tests -v # 3 passed
 
-# 5. Login + run
+# 5. Login + run (or use samples — see below)
 TOKEN=$(curl -s -X POST http://127.0.0.1/api/auth/login -H "Content-Type: application/json" -d '{"email":"owner@nileagro.sd","password":"admin123"}' | jq -r .access_token)
 curl -s -H "Authorization: Bearer $TOKEN" http://127.0.0.1/api/employees | jq
 RID=$(curl -s -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{"period":"2026-09"}' http://127.0.0.1/api/runs | jq -r .run_id)
@@ -28,17 +28,32 @@ curl -s -X POST -H "Authorization: Bearer $TOKEN" http://127.0.0.1/api/runs/$RID
 curl -s -H "Authorization: Bearer $TOKEN" "http://127.0.0.1/api/bank/file?run_id=$RID" | head
 ```
 
+## Samples (EN/AR — synthetic, trustworthy)
+
+> `samples/` — 12 + 42 employees, FX, statutory, expected totals, bank file, payslip. All `COMP-3` exact, versioned `v2026.09`, checksummed. No real persons.
+
+```bash
+# Import 12, compute, verify vs expected
+curl -s -H "Authorization: Bearer $TOKEN" -F file=@samples/employees_sample.csv http://127.0.0.1/api/employees/import | jq
+# → gross 43,011,522.50 / net 32,286,892.96 (see samples/payroll_run_2026-09_12.json)
+sha256sum -c samples/checksums.sha256 # all OK
+```
+
+- Dashboard: `http://127.0.0.1/app/samples.html` (EN/AR via `nav_samples` + `samp_*`) — blue **DEMO** badge, 4 trust bullets, **Load 12 / Load 42** one-click via `POST /api/employees/import`, previews at `/samples/`.
+- Docs: `samples/README.md` (EN + العربية), `samples/manifest.json`, `samples/checksums.sha256`.
+
 ## Structure
 
 - `landing-page/` — public site (5 pages, EN/AR, <50KB, waterfall demo). Open `http://127.0.0.1/` via Nginx.
-- `dashboard/` — operational console (10 pages + login.html, config.js/auth.js, app.js API wiring with mock fallback). Open `http://127.0.0.1/app/` → `login.html` (owner@nileagro.sd/admin123).
+- `dashboard/` — operational console (11 pages + login.html incl. `samples.html`, config.js/auth.js, app.js API wiring with mock fallback). Open `http://127.0.0.1/app/` → `login.html` (owner@nileagro.sd/admin123).
 - `backend/` — GnuCOBOL `libpayroll.so` (28KB) + FastAPI + SQLite WAL (`backend/db/smcpe.db`).
   - `cobol/` — copybooks + 5 modules (PRL-CALC etc) + Makefile
   - `api/` — app, payroll_lib (ctypes), schemas, security (bcrypt), routers (10 groups)
   - `db/` — schema.sql, seed.sql, migrate.py, conn.py
   - `workers/` — bank_export.py, payslip_sender.py
   - `templates/` — payslip.txt (794 bytes)
-- `docs/` — 01-architecture, 02-cobol, 03-api, 04-db, 05-deployment, 06-operations, 07-security, 08-qa-pilot
+- `samples/` — synthetic EN/AR fixtures (12/42 CSV, FX/statutory JSON, expected totals, bank/payslip, manifest+checksums). Served at `http://127.0.0.1/samples/` + `X-SMCPE-Samples: synthetic-demo-only`.
+- `docs/` — 01-architecture, 02-cobol, 03-api, 04-db, 05-deployment, 06-operations, 07-security, 08-qa-pilot, 09-vps-setup
 - `ops/` — nginx/smcpe.conf, systemd/smcpe-api.service, scripts/backup.sh/restore.sh
 - `plan.md` — full production plan with checkboxes (all Phase 0-7 ✅, 8-9 in progress)
 

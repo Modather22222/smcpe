@@ -1,0 +1,16 @@
+{
+  "version": "v2026.09",
+  "fx_snapshot": {"USD":"2610.5000","SAR":"696.1000","AED":"710.8500","date":"2026-09-25","source":"locked"},
+  "statutory_version": "v2026.09",
+  "files": [
+    {"path":"employees_sample.csv","rows":12,"desc":"12 employees covering USD/SDG/SAR/AED, Y/N NSIF, zero/high/below-tax"},
+    {"path":"employees_42.csv","rows":42,"desc":"42 employees for load test, mixed 3 currencies, 15% contractors"},
+    {"path":"fx_rates.json","rows":3,"desc":"FX 2026-09-25 locked + CBOS history"},
+    {"path":"fx_rates.csv","rows":9,"desc":"Same as json, csv for import"},
+    {"path":"statutory_v2026.09.json","rows":1,"desc":"NSIF 8/17, tax_free 50000, tiers 5/10/15/20"},
+    {"path":"payroll_run_2026-09_12.json","rows":12,"totals":{"gross":"43011522.50","nsif_emp":"3101593.80","pit":"7623035.74","net":"32286892.96"},"desc":"Expected totals for 12 run via libpayroll.so"},
+    {"path":"bank_file_sample.txt","rows":14,"desc":"H|D|T for 12 run, COMP3-EXACT"},
+    {"path":"payslip_sample_SD-0042.txt","rows":1,"desc":"780 bytes text payslip"}
+  ],
+  "totals_42": {"gross":"186090341.70","nsif_emp":"12367681.67","pit":"33260581.90","net":"140462078.13"}
+}

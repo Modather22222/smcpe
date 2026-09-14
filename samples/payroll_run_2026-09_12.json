@@ -1,0 +1,152 @@
+{
+  "period": "2026-09",
+  "statutory_version": "v2026.09",
+  "fx_snapshot": {
+    "USD": "2610.5000",
+    "SAR": "696.1000",
+    "AED": "710.8500"
+  },
+  "employees": 12,
+  "totals": {
+    "gross": "43011522.50",
+    "nsif_emp": "3101593.80",
+    "nsif_co": "6590886.83",
+    "taxable": "39909928.70",
+    "pit": "7623035.74",
+    "net": "32286892.96"
+  },
+  "lines": [
+    {
+      "emp_id": "SD-0042",
+      "currency": "USD",
+      "gross": "4229010.00",
+      "nsif_emp": "338320.80",
+      "nsif_co": "718931.70",
+      "taxable": "3890689.20",
+      "pit": "740637.84",
+      "net": "3150051.36",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0043",
+      "currency": "SDG",
+      "gross": "970000.00",
+      "nsif_emp": "77600.00",
+      "nsif_co": "164900.00",
+      "taxable": "892400.00",
+      "pit": "140980.00",
+      "net": "751420.00",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0044",
+      "currency": "SAR",
+      "gross": "4176600.00",
+      "nsif_emp": "0.00",
+      "nsif_co": "0.00",
+      "taxable": "4176600.00",
+      "pit": "797820.00",
+      "net": "3378780.00",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0045",
+      "currency": "AED",
+      "gross": "3874132.50",
+      "nsif_emp": "309930.60",
+      "nsif_co": "658602.53",
+      "taxable": "3564201.90",
+      "pit": "675340.38",
+      "net": "2888861.52",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0046",
+      "currency": "SDG",
+      "gross": "470000.00",
+      "nsif_emp": "37600.00",
+      "nsif_co": "79900.00",
+      "taxable": "432400.00",
+      "pit": "48980.00",
+      "net": "383420.00",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0047",
+      "currency": "USD",
+      "gross": "2741025.00",
+      "nsif_emp": "219282.00",
+      "nsif_co": "465974.25",
+      "taxable": "2521743.00",
+      "pit": "466848.60",
+      "net": "2054894.40",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0048",
+      "currency": "SAR",
+      "gross": "4872700.00",
+      "nsif_emp": "389816.00",
+      "nsif_co": "828359.00",
+      "taxable": "4482884.00",
+      "pit": "859076.80",
+      "net": "3623807.20",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0049",
+      "currency": "AED",
+      "gross": "5900055.00",
+      "nsif_emp": "472004.40",
+      "nsif_co": "1003009.35",
+      "taxable": "5428050.60",
+      "pit": "1048110.12",
+      "net": "4379940.48",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0050",
+      "currency": "SDG",
+      "gross": "65000.00",
+      "nsif_emp": "0.00",
+      "nsif_co": "0.00",
+      "taxable": "65000.00",
+      "pit": "750.00",
+      "net": "64250.00",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0051",
+      "currency": "SDG",
+      "gross": "0.00",
+      "nsif_emp": "0.00",
+      "nsif_co": "0.00",
+      "taxable": "0.00",
+      "pit": "0.00",
+      "net": "0.00",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0052",
+      "currency": "USD",
+      "gross": "15663000.00",
+      "nsif_emp": "1253040.00",
+      "nsif_co": "2662710.00",
+      "taxable": "14409960.00",
+      "pit": "2844492.00",
+      "net": "11565468.00",
+      "engine": "cobol"
+    },
+    {
+      "emp_id": "SD-0053",
+      "currency": "SDG",
+      "gross": "50000.00",
+      "nsif_emp": "4000.00",
+      "nsif_co": "8500.00",
+      "taxable": "46000.00",
+      "pit": "0.00",
+      "net": "46000.00",
+      "engine": "cobol"
+    }
+  ]
+}

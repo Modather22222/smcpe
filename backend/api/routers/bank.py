@@ -39,7 +39,7 @@ async def bank_file(
     header = f"H|{tenant}|{period}|{count:06d}|{gross_str}"
     details = [f"D|{r['bank_account']}|{format(Decimal(r['net']), '.2f')}|{r['emp_id']}|{r['bank_code']}" for r in lines]
     trailer = f"T|{count:06d}|{net_str}|COMP3-EXACT"
-    txt = "\n".join([header] + details + [trailer])
+    txt = "\n".join([header] + details + [trailer]) + "\n"
     logger.info("Bank file %s for tenant %s: %s lines gross %s net %s", run_id, tenant, count, gross_str, net_str)
     if file_format == "csv":
         csv_lines = ["account,net,emp_id,bank"]

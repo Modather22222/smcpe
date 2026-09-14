@@ -40,11 +40,17 @@ def test_tenant_isolation():
     # Create a DEMO employee directly via DB and try to access as NA owner should fail (IDOR)
     db_path = pathlib.Path(__file__).parent.parent / "db" / "smcpe.db"
     con = sqlite3.connect(str(db_path))
-    con.execute("INSERT OR IGNORE INTO employees VALUES ('SD-9999','DEMO','Hacker','000','2020-01-01','SDG','100000.00','0.00','Y','000','BANK','2026-09-01T00:00:00Z')")
-    con.commit()
-    con.close()
-    r = client.get("/api/employees/SD-9999", headers=hdr)
-    assert r.status_code == 404, "Should not leak DEMO employee to NA owner via tenant filter"
+    try:
+        con.execute("INSERT OR IGNORE INTO employees VALUES ('SD-9999','DEMO','Hacker','000','2020-01-01','SDG','100000.00','0.00','Y','000','BANK','2026-09-01T00:00:00Z')")
+        con.commit()
+        con.close()
+        r = client.get("/api/employees/SD-9999", headers=hdr)
+        assert r.status_code == 404, "Should not leak DEMO employee to NA owner via tenant filter"
+    finally:
+        con2 = sqlite3.connect(str(db_path))
+        con2.execute("DELETE FROM employees WHERE id='SD-9999'")
+        con2.commit()
+        con2.close()
 
 def test_money_strings():
     token = _login("owner@nileagro.sd")

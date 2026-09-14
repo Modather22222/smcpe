@@ -1,0 +1,21 @@
+SMCPE Payslip — 2026-09 — NA
+==================================================
+Employee: Amal O. Hassan (SD-0042) — NID 19884402
+Hire: 2019-03-11 — Currency: USD — NSIF: Y
+Base Salary:      1400.00 USD
+Allowances:       220.00 USD
+FX Rate:          2610.5000 SDG
+--------------------------------------------------
+Gross SDG:        4229010.00
+NSIF Employee 8%: 338320.80
+NSIF Employer 17%: 718931.70
+Taxable:          3890689.20
+PIT:              740637.84
+--------------------------------------------------
+Net Pay SDG:      3150051.36
+Net Pay USD:      1206.69
+--------------------------------------------------
+Bank: BANKAK — 1002844551
+Statutory: v2026.09 — FX locked 2026-09-25
+==================================================
+COMP-3 exact — libpayroll.so
