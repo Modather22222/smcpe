@@ -1,0 +1,18 @@
+[project]
+name = "smcpe-backend"
+version = "2026.09.0"
+description = "SMCPE payroll API bridge to libpayroll.so"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi",
+  "uvicorn",
+  "pydantic",
+  "python-multipart",
+  "passlib",
+  "python-jose",
+  "aiosqlite",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

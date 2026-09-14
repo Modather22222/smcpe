@@ -1,0 +1,16 @@
+[Unit]
+Description=SMCPE Payroll API (FastAPI + libpayroll.so)
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/projects/smcpe/backend
+EnvironmentFile=/home/projects/smcpe/backend/.env
+ExecStart=/home/projects/smcpe/backend/.venv/bin/uvicorn api.app:app --host 127.0.0.1 --port 8000 --workers 2
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
