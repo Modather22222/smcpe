@@ -1,0 +1,17 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bank Export — SMCPE Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css"><link rel="stylesheet" href="css/dashboard.css"></head>
+<body data-page="bank"><div class="app">
+<aside class="side" aria-label="Primary"><a class="brand" href="index.html"><span class="mark">S£</span><span><b>Sudan Payroll Engine</b><span>SMCPE · COMP-3</span></span></a>
+<nav class="nav"><h4 data-i18n="nav_operate"></h4><a href="index.html" data-nav="dashboard"><span data-i18n="nav_dashboard"></span></a><a href="employees.html" data-nav="employees"><span data-i18n="nav_employees"></span></a><a href="run.html" data-nav="run"><span data-i18n="nav_run"></span></a><a href="payslips.html" data-nav="payslips"><span data-i18n="nav_payslips"></span></a><h4 data-i18n="nav_compliance"></h4><a href="fx.html" data-nav="fx"><span data-i18n="nav_fx"></span></a><a href="reports.html" data-nav="reports"><span data-i18n="nav_reports"></span></a><a href="bank.html" data-nav="bank"><span data-i18n="nav_bank"></span></a><h4 data-i18n="nav_admin"></h4><a href="tenants.html" data-nav="tenants"><span data-i18n="nav_tenants"></span></a><a href="audit.html" data-nav="audit"><span data-i18n="nav_audit"></span></a><a href="settings.html" data-nav="settings"><span data-i18n="nav_settings"></span></a></nav><div class="side-foot"><div class="engine"><span class="dot"></span><span><b style="color:#fff">libpayroll.so</b><br><span class="mono">COMP-3 exact</span></span></div></div></aside>
+<div class="main"><div class="top"><div class="top-in"><div class="tenant"><i>NA</i> Nile Agro Trading <span class="badge b-fx">2026-09</span></div>
+<div class="period"><button class="btn lang-toggle mono" id="dashLangToggle">EN</button><a class="btn" href="../landing-page/index.html" data-i18n="top_site"></a></div></div></div>
+<div class="wrap"><p class="eyebrow" data-i18n="bank_eb"></p><h1 data-i18n="bank_title"></h1>
+<div class="card"><h3 data-i18n="file2_title"></h3><div class="table-wrap"><table><thead><tr><th data-i18n="th_acct"></th><th data-i18n="th_bank2"></th><th class="num" data-i18n="th_net2"></th><th data-i18n="th_ref"></th><th data-i18n="th_st"></th></tr></thead><tbody><tr><td class="mono">1002844551</td><td>Bankak</td><td class="num">3,307,085.82</td><td class="mono">SAL-09-0042</td><td><span class="badge b-ok" data-i18n="valid"></span></td></tr><tr><td class="mono">88210042</td><td>Faisal</td><td class="num">766,040.00</td><td class="mono">SAL-09-0043</td><td><span class="badge b-ok" data-i18n="valid"></span></td></tr></tbody></table></div>
+<pre class="file mono">H|NILEAGRO|202609|000042|0048620400.00
+D|1002844551|3307085.82|SD-0042|BANKAK
+D|0088210042|0766040.00|SD-0043|FAISAL
+T|000042|33891240.55|COMP3-EXACT</pre>
+<div class="foot"><button class="btn btn-primary" data-i18n="btn_download"></button><button class="btn" data-i18n="sftp"></button></div></div></div></div></div>
+<script src="js/data.js"></script><script src="js/payroll.js"></script><script src="js/i18n.js"></script><script src="js/app.js"></script></body></html>
